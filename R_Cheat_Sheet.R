@@ -7,14 +7,13 @@
 TermData <- read.csv(file.choose(), header=T, sep=";", dec=",")
 
 
-
 #Import American .csv
 TermData <- read.csv(file.choose(), header=T, sep=",", dec=".")
 
 
-#Generic 'ifelse' statement to create new numeric variable instead of existing Sex defined as Male/Female
-Data$Sex_numeric <- ifelse(EarlyGrowth$Sex == "Male", 1, 
-                                  ifelse(EarlyGrowth$Sex == "Female", 2,NA))
+#Generic 'ifelse' statement to recode an existing discrete variable for 'Sex' defined as numbers instead of text
+Data$Sex_numeric <- as.factor(ifelse(EarlyGrowth$Sex == "Male", 1, 
+                                  ifelse(EarlyGrowth$Sex == "Female", 2,NA)))
 
 
 
