@@ -170,6 +170,8 @@ boxplot(obese$BMI, overweight$BMI, horizontal = TRUE, col = c("orange", "red"), 
 
 
 #3-DIMENSIONAL SCATTERPLOT
+install.packages("scatterplot3d")
+library(scatterplot3d)
 source('http://www.sthda.com/sthda/RDoc/functions/addgrids3d.r')
 x <- Data$Age
 y <- Data$BMI
