@@ -3,12 +3,12 @@
 ##################################
 
 
-#Import European .csv
-TermData <- read.csv(file.choose(), header=T, sep=";", dec=",")
+#Import European .csv - save as dataframe 'Data'
+Data <- read.csv(file.choose(), header=T, sep=";", dec=",")
 
 
-#Import American .csv
-TermData <- read.csv(file.choose(), header=T, sep=",", dec=".")
+#Import American .csv - save as dataframe 'Data'
+Data <- read.csv(file.choose(), header=T, sep=",", dec=".")
 
 
 #Generic 'ifelse' statement to recode an existing discrete variable for 'Sex' defined as numbers instead of text
@@ -17,7 +17,7 @@ Data$Sex_numeric <- as.factor(ifelse(EarlyGrowth$Sex == "Male", 1,
 
 
 
-#Aggregate data where you want to average duplicate rows for each study participant across several variables [,1:10]
+#Aggregate 'Data' dataset to average duplicate rows for each study participant across several variables [,1:10]
 Aggregate.df <- aggregate(Data[, 1:10], na.rm=TRUE, list(Data$Patient_ID), mean)
 
 
