@@ -23,7 +23,7 @@ Aggregate.df <- aggregate(Data[, 1:10], na.rm=TRUE, list(Data$Patient_ID), mean)
 
 
 #Write dataset to .csv file
-write.table(aggr4years, "EarlyGrowth_aggregate_4_years.csv",
+write.table(Data, "Data_backup_May2021.csv",
             na = "",
             row.names = FALSE,
             col.names = TRUE,
