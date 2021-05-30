@@ -17,7 +17,7 @@ Data$Sex_numeric <- as.factor(ifelse(EarlyGrowth$Sex == "Male", 1,
 
 
 
-#Aggregate 'Data' dataset to average duplicate rows for each study participant across several variables [,1:10]
+#Aggregate 'Data' dataset to average duplicate rows for each study participant by 'Patient_ID' across several feature variables [,1:10]
 Aggregate.df <- aggregate(Data[, 1:10], na.rm=TRUE, list(Data$Patient_ID), mean)
 
 
@@ -89,7 +89,7 @@ sum(is.na(Data))
 
 
 #FIND HIGHEST VALUE IN A ROW
-results$max <- results[2:4][cbind(seq_len(nrow(results)), max.col(results[2:4]))]
+Data$max <- Data[2:4][cbind(seq_len(nrow(Data)), max.col(Data[2:4]))]
 
 
 #ADD "CHR-" TO VALUES IN A COLUMN '$Prediction'
@@ -100,7 +100,7 @@ Data$Prediction <- sprintf('CHR%i', Data$Prediction)
 #Vertically merge two datasets with identical column setup
 a <- data.frame(Data1$Age, Data1$Sex, Data1$BMI)
 colnames(a) <- c("Age","Sex","BMI")
-a <- data.frame(Data2$Age, Data2$Sex, Data2$BMI)
+b <- data.frame(Data2$Age, Data2$Sex, Data2$BMI)
 colnames(b) <- c("Age","Sex","BMI")
 cols <- intersect(colnames(a), colnames(b))
 c <- rbind(a[,cols], b[,cols])
