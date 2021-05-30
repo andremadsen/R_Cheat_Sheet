@@ -50,9 +50,9 @@ Combined.df <- merge(x=df1, y=df2, by.x="ID", by.y="ID", all.x=TRUE)
 
 
 #STATIFY DISCRETE CLASSES FROM A CONTINUOUS VARIABLE, E.G BMI weight classes  
-Data$Weight_class <- (ifelse(Data$BMI > 30, "obese", 
-                               ifelse(Data$BMI > 25, "overweight",
-                               ifelse(Data$BMI > 20, "normal", NA))))
+Data$Weight_class <- ifelse(Data$BMI > 30, "obese", 
+                     ifelse(Data$BMI > 25, "overweight",
+                     ifelse(Data$BMI > 20, "normal", NA))))
 
 plot.default(Data$Age, Data$BMI, col=Data$Weight_class) 
 
