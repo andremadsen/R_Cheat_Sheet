@@ -113,7 +113,7 @@ c <- rbind(a[,cols], b[,cols])
 
 
 
-#Eliminate all rows in a dataset for which there are missing vales (N/A) in selected column
+#Eliminate all rows in a dataset for which there are missing vales (N/A) in ONE selected column - better than na.omit(Data) that eliminates any rows with any N/A in any column
 Complete.obs <- Data[complete.cases(Data$BMI),]
 
 
@@ -123,25 +123,24 @@ Data$BMI[is.na(Data$BMI)] <- 0
 
 
 
-#Remove the column "BMI" from dataset 'Data
+#Remove the column "BMI" from dataset 'Data'
 Data <- subset(Data, select = -BMI)
 
 
 
-#ASSIGN QUARTILES FOR BMI, COMPARTMENTALIZE Q1 AND Q3 STATA, AND RUN T-TEST 
+#ASSIGN QUARTILES FOR BMI, COMPARTMENTALIZE Q1 AND Q3 STRATA, AND RUN T-TEST 
 sum1 <- summary(Data$BMI)
 sum1
 Data$Quartile <- ifelse(Data$BMI < sum1[2], 1, 
                  ifelse(Data$BMI < sum1[3], 2,
-                 ifelse(Data$BMI < sum1[5], 3,  
-                 ifelse(Data$BMI > sum1[5], 4,
+                 ifelse(Data$BMI > sum1[5], 3,
                  ifelse(Data$BMI, 0, NA)))))
 
-Data1 <- Data[Data$Quartile %in% c(1),]
-Data2 <- Data[Data$Quartile %in% c(4),]
+Q1_Data <- Data[Data$Quartile %in% c(1),]
+Q3_Data <- Data[Data$Quartile %in% c(3,]
 
 
-t.test(Data1$BMI, Data2$BMI)
+t.test(Q1_Data$BMI, Q3_Data$BMI)
 
 
 
@@ -162,7 +161,7 @@ quantile(Data$BMI, c(.5, .025, .975), na.rm=TRUE)  #output: p50=median; p2.5 and
 
 #NIFTY BOXPLOT
 obese <- Data[Data$Weight_class == "obese",]
-overweight <- Data2[Data2$Menarke == "overweight",]
+overweight <- Data[Data$Weight_class == "overweight",]
 
 boxplot(obese$BMI, overweight$BMI, horizontal = TRUE, col = c("orange", "red"), names = c("obese", "overweight"), 
         xlab = "BMI, kg/m2", border = "brown", notch = TRUE)
