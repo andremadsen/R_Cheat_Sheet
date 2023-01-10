@@ -16,6 +16,10 @@ Data$Sex_numeric <- as.factor(ifelse(Data$Sex == "Male", 1,
                                   ifelse(Data$Sex == "Female", 2,NA)))
 
 
+#Impute random values from rnorm() to replace NA values in df
+Data <- Data %>% mutate_all(~ifelse(is.nan(.), NA, .)) # First turn NaN into NA
+Data[is.na(Data)] <- runif(n = length(which(is.na(Data))), rnorm(1, mean=0, sd=1)) # Impute rnorm() to replace NA
+
 
 #Aggregate 'Data' dataset to average duplicate rows for each study participant by 'Patient_ID' across several feature variables [,1:10]
 Aggregate.df <- aggregate(Data[, 1:10], na.rm=TRUE, list(Data$Patient_ID), mean)
